@@ -20,8 +20,8 @@ namespace XinYiAPI.Controllers
             this._LandSpaceService = landSpaceService;
             this.landSpaces = _LandSpaceService.GetAll();
         }
-       
 
+        [HttpGet]
         private List<PowerType> getQSXZList()
         {
             var QSXZCodeList = landSpaces.GroupBy(x => x.QSXZ).Select(x => x.Key).ToList();
@@ -179,6 +179,7 @@ namespace XinYiAPI.Controllers
             return Ok(result);
         }
         //获取二级分类数据
+        [HttpGet]
         public ActionResult getSecCate([FromQuery] string village)
         {
             List<LandSpaceDto> LandSpaceDtoList = new List<LandSpaceDto>();
