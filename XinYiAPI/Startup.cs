@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using XinYiAPI.Models;
 using XinYiAPI.Services;
 using XinYiAPI.DataAccess.Base;
+using IdentityServer4.Test;
+using Microsoft.IdentityModel.Tokens;
 
 namespace XinYiAPI
 {
@@ -30,6 +32,17 @@ namespace XinYiAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAuthentication("Bearer")
+            .AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = "http://localhost:5187";
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false
+                };
+                Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
+            });
             services.AddDbContext<AlanContext>(options =>
                                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc(options =>
@@ -65,6 +78,7 @@ namespace XinYiAPI
                     }
                 });
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,7 +92,7 @@ namespace XinYiAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(options =>
@@ -87,12 +101,11 @@ namespace XinYiAPI
                 options.RoutePrefix = "swagger";
             });
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
             app.UseCors(MyAllowSpecificOrigins);
-            app.UseAuthentication();
             app.UseMvc();
         }
     }
