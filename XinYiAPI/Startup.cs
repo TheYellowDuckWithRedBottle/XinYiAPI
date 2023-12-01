@@ -10,7 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using XinYiAPI.Models;
 using XinYiAPI.Services;
+using XinYiAPI.DataAccess.Base;
 
 namespace XinYiAPI
 {
@@ -27,6 +30,8 @@ namespace XinYiAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<AlanContext>(options =>
+                               options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc(options =>
             {
                 options.EnableEndpointRouting = false;
@@ -41,7 +46,25 @@ namespace XinYiAPI
                 });
             });
             services.AddScoped<LandSpaceService>();
+            services.AddScoped<SecCateService>();
+            services.AddScoped<ProvinceService>();
+            services.AddScoped<CityService>();
+            services.AddScoped<DistrictService>();
             services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "XinYiAPI",
+                    Version = "v1",
+                    Description = "XinYiAPI",
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                    {
+                        Name = "Alan",
+                        Email = "1521681359@qq.com"
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +80,12 @@ namespace XinYiAPI
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "XinYiAPI");
+                options.RoutePrefix = "swagger";
+            });
 
             //app.UseEndpoints(endpoints =>
             //{

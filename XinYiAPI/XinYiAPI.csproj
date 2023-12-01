@@ -3,11 +3,29 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+</PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Base\**" />
+    <Content Remove="Base\**" />
+    <EmbeddedResource Remove="Base\**" />
+    <None Remove="Base\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="MongoDB.Driver" Version="2.11.5" />
+    <PackageReference Include="MySql.Data" Version="8.2.0" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="3.1.32" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
 
