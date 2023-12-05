@@ -3,7 +3,7 @@ using IdentityModel.Client;
 
 Console.WriteLine("Hello, World!");
 var client = new HttpClient();
-var disco = await client.GetDiscoveryDocumentAsync("http://localhost:5187");
+var disco = await client.GetDiscoveryDocumentAsync("http://localhost:3000");
 if (disco.IsError)
 {
     Console.WriteLine(disco.Error);
@@ -13,10 +13,9 @@ if (disco.IsError)
 var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
 {
     Address = disco.TokenEndpoint,
-
-    ClientId = "fanyutan",
-    ClientSecret = "fanyutan123456",
-    Scope = "api/District/GetDistricts"
+    ClientId = "testUser",
+    ClientSecret = "testUser123456",
+    Scope = "api1"
 });
 
 if (tokenResponse.IsError)

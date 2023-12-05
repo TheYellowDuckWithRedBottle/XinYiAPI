@@ -33,16 +33,13 @@ namespace XinYiAPI
         {
             services.AddControllers();
             services.AddAuthentication("Bearer")
-            .AddJwtBearer("Bearer", options =>
-            {
-                options.Authority = "http://localhost:5187";
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateAudience = false
-                };
-                Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
-            });
+               .AddJwtBearer("Bearer", options =>
+               {
+                   options.Authority = "http://localhost:3000";
+                   options.RequireHttpsMetadata = false;
+
+                   options.Audience = "api1";
+               });
             services.AddDbContext<AlanContext>(options =>
                                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc(options =>
@@ -106,7 +103,6 @@ namespace XinYiAPI
                 endpoints.MapControllers();
             });
             app.UseCors(MyAllowSpecificOrigins);
-            app.UseMvc();
         }
     }
 }

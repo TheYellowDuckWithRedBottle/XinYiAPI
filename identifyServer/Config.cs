@@ -11,11 +11,17 @@ namespace identifyServer
             resources.Add(new IdentityResources.Profile());
             return resources;
         }
+        public static IEnumerable<ApiScope> ApiScopes()
+        {
+            List<ApiScope> scopes = new List<ApiScope>();
+            scopes.Add(new ApiScope("api1", "测试api"));
+            return scopes;
+        }
 
         public static IEnumerable<ApiResource> ApiResources()
         {
             List<ApiResource> resources = new List<ApiResource>();
-            resources.Add(new ApiResource("api/District/GetDistricts", "测试api"));
+            resources.Add(new ApiResource("api1", "测试api"));
             return resources;
         }
         public static IEnumerable<Client> Clients()
@@ -23,13 +29,13 @@ namespace identifyServer
             List<Client> clients = new List<Client>();
             clients.Add(new Client
             {
-                ClientId = "fanyutan",
+                ClientId = "testUser",
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets =
                 {
-                    new Secret("fanyutan123456".Sha256())
+                    new Secret("testUser123456".Sha256())
                 },
-                AllowedScopes = { "api/District/GetDistricts" }
+                AllowedScopes = { "api1" }
             });
             return clients;
         }
