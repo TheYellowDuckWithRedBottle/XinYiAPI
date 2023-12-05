@@ -14,7 +14,7 @@ namespace XinYiAPI.Controllers
             this.ProvinceService = provinceService;
         }
         [HttpGet]
-        public IActionResult GetProvinces()
+        public IActionResult provinces()
         {
 
             return Ok(ProvinceService.GetProvinces());

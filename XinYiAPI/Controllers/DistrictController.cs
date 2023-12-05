@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using XinYiAPI.Services;
 
 namespace XinYiAPI.Controllers
@@ -13,7 +14,7 @@ namespace XinYiAPI.Controllers
             this.DistrictService = districtService;
         }
         [HttpGet]
-        public IActionResult GetDistricts()
+        public IActionResult districts()
         {
             return Ok(DistrictService.GetDistricts());
         }
