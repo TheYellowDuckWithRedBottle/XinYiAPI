@@ -23,5 +23,17 @@ if (tokenResponse.IsError)
     Console.WriteLine(tokenResponse.Error);
     return;
 }
-
 Console.WriteLine(tokenResponse.Json);
+var apiClient = new HttpClient();
+apiClient.SetBearerToken(tokenResponse.AccessToken);
+
+var response = await apiClient.GetAsync("http://localhost:5000/api/District/Get");
+if (!response.IsSuccessStatusCode)
+{
+    Console.WriteLine(response.StatusCode);
+}
+else
+{
+    var content = await response.Content.ReadAsStringAsync();
+    Console.WriteLine(content);
+}

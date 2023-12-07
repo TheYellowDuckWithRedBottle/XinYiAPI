@@ -1,21 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using XinYiAPI.Models;
 using XinYiAPI.Services;
 using XinYiAPI.DataAccess.Base;
-using IdentityServer4.Test;
-using Microsoft.IdentityModel.Tokens;
 
 namespace XinYiAPI
 {
@@ -37,9 +27,9 @@ namespace XinYiAPI
                {
                    options.Authority = "http://localhost:3000";
                    options.RequireHttpsMetadata = false;
-
-                   options.Audience = "api1";
+                   options.Audience = "api1";     
                });
+
             services.AddDbContext<AlanContext>(options =>
                                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc(options =>
