@@ -1,3 +1,4 @@
+using identifyServer;
 using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,10 +14,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddIdentityServer()
-    .AddInMemoryIdentityResources(identifyServer.Config.IdentityResources())
-    .AddInMemoryApiResources(identifyServer.Config.ApiResources())
-    .AddInMemoryClients(identifyServer.Config.Clients())
-    .AddInMemoryApiScopes(identifyServer.Config.ApiScopes())
+    .AddInMemoryApiScopes(Config.ApiScopes())
+    .AddInMemoryClients(Config.Clients())
+    .AddInMemoryApiResources(Config.ApiResources())
     .AddDeveloperSigningCredential();
 // ÃÌº”»’÷æ
 

@@ -11,6 +11,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "identifyServer", "identifyServer\identifyServer.csproj", "{156EB57A-7F14-45DF-9784-D162D6E2FE08}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{53D77199-9F59-473A-9003-370F0EB2EBE6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{156EB57A-7F14-45DF-9784-D162D6E2FE08} = {156EB57A-7F14-45DF-9784-D162D6E2FE08}
+		{4740F6CB-4EA1-4F05-8AF5-7A78876C256E} = {4740F6CB-4EA1-4F05-8AF5-7A78876C256E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
