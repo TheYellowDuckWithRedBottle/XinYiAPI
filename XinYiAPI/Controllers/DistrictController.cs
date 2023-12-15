@@ -7,7 +7,7 @@ namespace XinYiAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    [Authorize]
+  //  [Authorize]
     public class DistrictController: ControllerBase
     {
         private DistrictService DistrictService;
@@ -15,6 +15,10 @@ namespace XinYiAPI.Controllers
         {
             this.DistrictService = districtService;
         }
+        /// <summary>
+        /// 获取地区列表
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult districts()
         {
