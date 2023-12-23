@@ -14,11 +14,21 @@ namespace XinYiAPI.Controllers
         {
             this.CityService = cityService;
         }
+        /// <summary>
+        /// 获取城市列表
+        /// </summary>
+        /// <param name="pageIndex"> 页码</param>
+        /// <param name="pageSize">每页多少个</param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetCities([FromQuery] int pageIndex = 0,int pageSize=10)
         {
             return Ok(CityService.GetCities());
         }
+        /// <summary>
+        /// 生成随机数
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ResponseCache(Duration = 10)]
         public IActionResult reandom()

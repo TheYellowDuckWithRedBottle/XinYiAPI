@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using XinYiAPI.Services;
 using XinYiAPI.DataAccess.Base;
+using System.IO;
 
 namespace XinYiAPI
 {
@@ -17,18 +18,18 @@ namespace XinYiAPI
         }
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public IConfiguration Configuration { get; }
-
+        public string ApiName { get; set; } = "XINYI.API";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddAuthentication("Bearer")
-               .AddJwtBearer("Bearer", options =>
-               {
-                   options.Authority = "http://localhost:3000";
-                   options.RequireHttpsMetadata = false;
-                   options.Audience = "api1";     
-               });
+            //services.AddAuthentication("Bearer")
+            //   .AddJwtBearer("Bearer", options =>
+            //   {
+            //       options.Authority = "http://localhost:3000";
+            //       options.RequireHttpsMetadata = false;
+            //       options.Audience = "api1";     
+            //   });
 
             services.AddDbContext<AlanContext>(options =>
                                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
@@ -55,15 +56,21 @@ namespace XinYiAPI
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
-                    Title = "XinYiAPI",
+                    Title = $"{ApiName}",
                     Version = "v1",
-                    Description = "XinYiAPI",
+                    Description = $"{ApiName}接口文档-Netcore 3.1",
                     Contact = new Microsoft.OpenApi.Models.OpenApiContact
                     {
-                        Name = "Alan",
+                        Name = "LeviFan",
                         Email = "1521681359@qq.com"
                     }
                 });
+                options.OrderActionsBy(option => option.RelativePath);
+                var xmlPath = "F:\\C#\\API\\XinYiAPI\\bin\\Debug\\netcoreapp3.1\\XinYiAPI.xml";//这个就是刚刚配置的xml文件名
+                options.IncludeXmlComments(xmlPath, true);
+
+                options.OperationFilter<AddResponseHeadersFilter>();
+                options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
             });
             
         }
@@ -75,9 +82,8 @@ namespace XinYiAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -92,7 +98,7 @@ namespace XinYiAPI
             {
                 endpoints.MapControllers();
             });
-            app.UseCors(MyAllowSpecificOrigins);
+           
         }
     }
 }
