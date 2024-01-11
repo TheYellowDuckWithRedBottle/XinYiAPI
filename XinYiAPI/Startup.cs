@@ -7,6 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using XinYiAPI.Services;
 using XinYiAPI.DataAccess.Base;
 using System.IO;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using XinYiAPI.Common;
+using Microsoft.OpenApi.Models;
 
 namespace XinYiAPI
 {
@@ -22,6 +27,34 @@ namespace XinYiAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var key = Encoding.ASCII.GetBytes(Configuration["JwtSetting:SecretKey"]);
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    // 是否验证颁发者
+                    ValidateIssuer = true,
+                    // 是否验证访问群体
+                    ValidateAudience = true,
+                    // 是否验证生命周期
+                    ValidateLifetime = true,
+                    // 是否验证安全密钥
+                    ValidateIssuerSigningKey = true,
+                    // 访问群体
+                    ValidAudience = Configuration["JwtSettings:Audience"],
+                    // 颁发者
+                    ValidIssuer = Configuration["JwtSettings:Issuer"],
+                    // 安全密钥
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                };
+            });
+            string secretKey = Configuration["JwtSetting:SecretKey"];
+            string issuer = Configuration["JwtSetting:Issuer"];
+            services.AddSingleton(new JwtService(secretKey, issuer));
             services.AddControllers();
             //services.AddAuthentication("Bearer")
             //   .AddJwtBearer("Bearer", options =>
@@ -33,10 +66,6 @@ namespace XinYiAPI
 
             services.AddDbContext<AlanContext>(options =>
                                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc(options =>
-            {
-                options.EnableEndpointRouting = false;
-            });
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins, policy =>
@@ -51,6 +80,7 @@ namespace XinYiAPI
             services.AddScoped<ProvinceService>();
             services.AddScoped<CityService>();
             services.AddScoped<DistrictService>();
+            
             services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
             services.AddSwaggerGen(options =>
             {
@@ -68,9 +98,15 @@ namespace XinYiAPI
                 options.OrderActionsBy(option => option.RelativePath);
                 var xmlPath = "F:\\C#\\API\\XinYiAPI\\bin\\Debug\\netcoreapp3.1\\XinYiAPI.xml";//这个就是刚刚配置的xml文件名
                 options.IncludeXmlComments(xmlPath, true);
-
-                options.OperationFilter<AddResponseHeadersFilter>();
-                options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description = "jwt授权(数据将在请求头中进行传输)直接在下框中输入Bearer {token}（注意两者之间是一个空格）\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                }); ;
+                //options.OperationFilter<AddResponseHeadersFilter>();
+                //options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
             });
             
         }

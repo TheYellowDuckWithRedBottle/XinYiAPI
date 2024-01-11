@@ -10,13 +10,9 @@
 
   <ItemGroup>
     <Compile Remove="Base\**" />
-    <Compile Remove="新文件夹1\**" />
     <Content Remove="Base\**" />
-    <Content Remove="新文件夹1\**" />
     <EmbeddedResource Remove="Base\**" />
-    <EmbeddedResource Remove="新文件夹1\**" />
     <None Remove="Base\**" />
-    <None Remove="新文件夹1\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +28,10 @@
     <PackageReference Include="MySql.EntityFrameworkCore" Version="3.1.32" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="新文件夹\" />
   </ItemGroup>
 
 
