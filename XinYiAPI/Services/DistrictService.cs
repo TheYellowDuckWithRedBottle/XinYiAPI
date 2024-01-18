@@ -19,14 +19,14 @@ namespace XinYiAPI.Services
             return districtContext.SaveChanges() > 0;
         }
 
-        public bool DeleteDistrict(int id)
+        public bool DeleteDistrict(string id)
         {
             District district = districtContext.districts.SingleOrDefault(s => s.Id == id);
             districtContext.Remove(district);
             return  districtContext.SaveChanges() > 0;
         }
 
-        public District GetDistrictById(int id)
+        public District GetDistrictById(string id)
         {
             District district = districtContext.districts.SingleOrDefault(s => s.Id == id);
             return district;

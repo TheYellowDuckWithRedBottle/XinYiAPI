@@ -19,7 +19,7 @@ namespace XinYiAPI.Services
             return CityContext.SaveChanges() > 0;
         }
 
-        public bool DeleteCity(int id)
+        public bool DeleteCity(string id)
         {
             var city = CityContext.citys.SingleOrDefault(s => s.id == id);
             CityContext.citys.Remove(city);
@@ -31,7 +31,7 @@ namespace XinYiAPI.Services
            return CityContext.citys.ToList();
         }
 
-        public City GetCityById(int id)
+        public City GetCityById(string id)
         {
             var city = CityContext.citys.SingleOrDefault(s => s.id == id);
             return city;

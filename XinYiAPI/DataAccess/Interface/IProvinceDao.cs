@@ -8,9 +8,9 @@ namespace XinYiAPI.DataAccess.Interface
     {
         bool CreateProvince(Province province);
         IEnumerable<Province> GetProvinces();
-        Province GetProvinceById(int id);
+        Province GetProvinceById(string id);
         bool UpdateProvince(Province province);
-        bool DeleteProvince(int id);
+        bool DeleteProvince(string id);
 
     }
 }

@@ -19,14 +19,14 @@ namespace XinYiAPI.Services
             return provinceContext.SaveChanges() > 0;
         }
 
-        public bool DeleteProvince(int id)
+        public bool DeleteProvince(string id)
         {
             Province province = provinceContext.provinces.SingleOrDefault(s=> s.id == id);
             provinceContext.provinces.Remove(province);
             return provinceContext.SaveChanges() > 0;
         }
 
-        public Province GetProvinceById(int id)
+        public Province GetProvinceById(string id)
         {
             Province province = provinceContext.provinces.SingleOrDefault(s => s.id == id);
             return province;
