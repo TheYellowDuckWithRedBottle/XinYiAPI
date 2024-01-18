@@ -65,7 +65,8 @@ namespace XinYiAPI
             //   });
 
             services.AddDbContext<AlanContext>(options =>
-                               options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+                            options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
+                            options => options.EnableRetryOnFailure()));
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins, policy =>
@@ -96,8 +97,8 @@ namespace XinYiAPI
                     }
                 });
                 options.OrderActionsBy(option => option.RelativePath);
-                var xmlPath = "F:\\C#\\API\\XinYiAPI\\bin\\Debug\\netcoreapp3.1\\XinYiAPI.xml";//这个就是刚刚配置的xml文件名
-                options.IncludeXmlComments(xmlPath, true);
+                //var xmlPath = "F:\\C#\\API\\XinYiAPI\\bin\\Debug\\netcoreapp3.1\\XinYiAPI.xml";//这个就是刚刚配置的xml文件名
+                //options.IncludeXmlComments(xmlPath, true);
                 options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Description = "jwt授权(数据将在请求头中进行传输)直接在下框中输入Bearer {token}（注意两者之间是一个空格）\"",
@@ -119,7 +120,6 @@ namespace XinYiAPI
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(MyAllowSpecificOrigins);
-            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

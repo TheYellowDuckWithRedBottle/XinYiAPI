@@ -7,9 +7,9 @@ namespace XinYiAPI.DataAccess.Interface
     public interface ICityDao
     {
         IEnumerable<City> GetCities();
-        City GetCityById(int id);
+        City GetCityById(string id);
         bool CreateCity(City city);
         bool UpdateCity(City city);
-        bool DeleteCity(int id);
+        bool DeleteCity(string id);
     }
 }

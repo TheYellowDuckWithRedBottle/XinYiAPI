@@ -6,7 +6,7 @@ namespace XinYiAPI.Eneities
     public class City
     {
         [Column("id")]
-        public int id { get; set; }
+        public string id { get; set; }
         [Column("code")]
         public string code { get; set; }
         [Column("name")]

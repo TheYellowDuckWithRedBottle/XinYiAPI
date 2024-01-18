@@ -6,7 +6,7 @@ namespace XinYiAPI.Eneities
     public class District
     {
         [Column("id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Column("code")]
         public string code { get; set; }
         [Column("name")]

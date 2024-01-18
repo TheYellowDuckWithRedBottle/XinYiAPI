@@ -7,10 +7,10 @@ namespace XinYiAPI.DataAccess.Interface
     public interface IDistrictDao
     {
         IEnumerable<District> GetDistricts();
-        District GetDistrictById(int id);
+        District GetDistrictById(string id);
         bool CreateDistrict(District district);
         bool UpdateDistrict(District district);
-        bool DeleteDistrict(int id);
+        bool DeleteDistrict(string id);
 
     }
 }
