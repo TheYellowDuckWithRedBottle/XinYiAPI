@@ -24,9 +24,9 @@ jobs:
     - name: Deploy to CentOS
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ 47.100.170.34 }}
-        username: ${{ root }}
-        key: ${{ Laojiegao521@ }}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PASSWORD }}
         port: ${{ 22 }}
         script: |
           cd /root/test/deploy
