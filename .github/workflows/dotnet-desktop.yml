@@ -22,7 +22,7 @@ jobs:
       run: dotnet publish -c Release -r linux-x64
 
     - name: Deploy to CentOS
-      uses: appleboy/ssh-action@main
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
