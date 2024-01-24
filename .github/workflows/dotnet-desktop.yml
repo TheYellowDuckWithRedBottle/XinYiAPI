@@ -28,6 +28,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.XinYiAPIKEY }}
         port: ${{ 22 }}
+        source: "."
+        target: "/root/test/deploy"
         script: |
           cd /root/test/deploy
           scp -r $GITHUB_WORKSPACE/publish/* root@remote:/root/test/deploy
