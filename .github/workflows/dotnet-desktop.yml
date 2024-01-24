@@ -26,7 +26,7 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.XinYiAPIKEY }}
+        key: ${{ secrets.PRIVATE_KEY }}
         port: ${{ 22 }}
         script: |
           cd /root/test/deploy
