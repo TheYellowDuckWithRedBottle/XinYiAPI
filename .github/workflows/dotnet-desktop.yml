@@ -19,7 +19,7 @@ jobs:
         dotnet-version: 3.1
 
     - name: Build and Publish
-      run: dotnet publish -c Release -r -linux-x64
+      run: dotnet publish -c Release -r linux-x64
 
     - name: Deploy to CentOS
       uses: appleboy/ssh-action@master
