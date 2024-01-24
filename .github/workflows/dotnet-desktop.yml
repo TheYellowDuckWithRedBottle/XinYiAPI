@@ -22,13 +22,13 @@ jobs:
       run: dotnet publish -c Release -r linux-x64
 
     - name: Deploy to CentOS
-      uses: appleboy/ssh-action@main
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
+        key: ${{ secrets.XinYiAPIKEY }}
         port: ${{ 22 }}
         script: |
           cd /root/test/deploy
-          scp -r $GITHUB_WORKSPACE/publish/* root@remote:/root/test/deploy/
+          scp -r $GITHUB_WORKSPACE/publish/* root@remote:/root/test/deploy
           # Additional deployment steps, e.g., restart the application, etc.
