@@ -33,13 +33,12 @@ jobs:
         target: "/root/test/deploy"
 
     - name: SSH into Server
-      uses: appleboy/scp-action@master
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: 47.100.170.34
         username: root
         key: ${{ secrets.SSH_KEY }}
         port: 22
-        script: |
-          cd /root/test/deploy
+        script: whoami
           # 在这里执行停止应用、备份数据等操作
           # 例如：sudo systemctl stop your-app.service
