@@ -30,5 +30,6 @@ jobs:
         port: ${{ 22 }}
         script: |
           cd /root/test/deploy
-          scp -r $GITHUB_WORKSPACE/publish/* root@remote:/root/test/deploy/
+          git pull origin master
+          dotnet publish -c Release -r linux-x64
           # Additional deployment steps, e.g., restart the application, etc.
