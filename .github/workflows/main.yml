@@ -40,5 +40,7 @@ jobs:
         password: ${{secrets.PASSWORD}}
         port: 22
         script: whoami
+          cd /root/test/deploy/out
+          nohup dotnet XinYiAPI.dll > app.log 2>&1 &
           # 在这里执行停止应用、备份数据等操作
           # 例如：sudo systemctl stop your-app.service
