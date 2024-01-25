@@ -43,15 +43,3 @@ jobs:
           cd /root/test/deploy
           # 在这里执行停止应用、备份数据等操作
           # 例如：sudo systemctl stop your-app.service
-
-    - name: Restart Application
-      uses: appleboy/ssh-action@master
-      with:
-        host: 47.100.170.34
-        username: root
-        key: Laojiegao521@
-        port: 22
-        script: |
-          cd /root/test/deploy
-          # 在这里执行启动应用等操作
-          # 例如：sudo systemctl start your-app.service
