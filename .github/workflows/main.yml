@@ -37,7 +37,7 @@ jobs:
       with:
         host: 47.100.170.34
         username: root
-        key: ${{ SSH_KEY }}
+        key: ${{ secrets.SSH_KEY }}
         port: 22
         script: |
           cd /root/test/deploy
