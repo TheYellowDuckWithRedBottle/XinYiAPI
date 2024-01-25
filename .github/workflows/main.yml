@@ -37,7 +37,7 @@ jobs:
       with:
         host: 47.100.170.34
         username: root
-        key: ${{ secrets.SSH_KEY }}
+        password: Laojiegao521@
         port: 22
         script: whoami
           # 在这里执行停止应用、备份数据等操作
