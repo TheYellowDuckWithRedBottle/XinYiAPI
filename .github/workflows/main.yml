@@ -20,7 +20,7 @@ jobs:
 
     - name: Build and Publish
       run: |
-        dotnet publish -c Release -r linux-x64
+        dotnet publish -c Release -o linux-x64
 
     - name: Copy Files to Server
       uses: appleboy/scp-action@v0.1.7
