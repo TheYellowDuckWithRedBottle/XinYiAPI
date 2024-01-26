@@ -32,7 +32,7 @@ namespace XinYiAPI.Services
             return district;
         }
 
-        public IEnumerable<District> GetDistricts()
+        public IList<District> GetDistricts()
         {
             return districtContext.districts.ToList();
         }

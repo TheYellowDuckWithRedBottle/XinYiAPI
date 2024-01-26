@@ -26,7 +26,7 @@ namespace XinYiAPI.Services
             return CityContext.SaveChanges() > 0;
         }
 
-        public IEnumerable<City> GetCities()
+        public IList<City> GetCities()
         {
            return CityContext.citys.ToList();
         }

@@ -31,6 +31,17 @@ namespace XinYiAPI.Services
             Province province = provinceContext.provinces.SingleOrDefault(s => s.id == id);
             return province;
         }
+        public Province GetProvinceByName (string name)
+        {
+            // 模糊查询
+            Province province = provinceContext.provinces.SingleOrDefault(s => s.name.Contains(name));
+            return province;
+        }
+        public Province GetProvinceByCode(string code)
+        {
+            Province province = provinceContext.provinces.SingleOrDefault(s => s.code == code);
+            return province;
+        }
 
         public IEnumerable<Province> GetProvinces()
         {
