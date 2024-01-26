@@ -32,16 +32,16 @@ namespace XinYiAPI.Controllers
             var newCityList = this.getCities(provinceName);
             return Ok(newCityList);
         }
-        [HttpGet]
         // 根据省获取城市下面的区县
+        [HttpGet]
         public IActionResult counties([FromQuery] string provinceName)
         {
             // 获取省下面的区县
             var newDistrictList = GetDistricts(provinceName);
             return Ok(newDistrictList);
         }
-        [HttpGet]
         // 根据省获取省的tree
+        [HttpGet]
         public IActionResult provinceTree([FromQuery] string provinceName)
         {
             // 获取省下面的城市
@@ -71,6 +71,11 @@ namespace XinYiAPI.Controllers
 
             return Ok(RetProvince);
         }
+
+
+
+
+
         // 根据省获取省的城市
         private List<City> getCities(string provinceName)
         {
