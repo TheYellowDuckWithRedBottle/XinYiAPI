@@ -71,6 +71,10 @@ namespace XinYiAPI.Controllers
 
             return Ok(RetProvince);
         }
+        [HttpGet]
+        public IActionResult testAuto() {
+            return Ok("测试成功");
+        }
 
 
 
