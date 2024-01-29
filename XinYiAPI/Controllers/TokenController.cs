@@ -10,13 +10,19 @@ namespace XinYiAPI.Controllers
         private readonly JwtService _jwtService;
         public TokenController(JwtService jwtService)
         {
-            this._jwtService = jwtService;
+            _jwtService = jwtService;
         }
+
         [HttpGet]
-        public IActionResult token([FromQuery] string userId)
+        public IActionResult token([FromQuery] string role)
         {
-           var token =  _jwtService.GenerateToken(userId);
-           return Ok(token);
+            return Ok(generateToken(role));
+        }
+
+
+        private string generateToken(string role)
+        {
+            return _jwtService.GenerateToken(role);
         }
     }
 }
