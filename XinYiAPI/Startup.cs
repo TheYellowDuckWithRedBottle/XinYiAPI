@@ -27,7 +27,17 @@ namespace XinYiAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var key = Encoding.ASCII.GetBytes(Configuration["JwtSetting:SecretKey"]);
+            var secretKey = Configuration["JwtSetting:SecretKey"];
+            var issuer = Configuration["JwtSetting:Issuer"];
+            var aduient = Configuration["JwtSetting:Audience"];
+            var key = Encoding.UTF8.GetBytes(secretKey);
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Client", policy => policy.RequireRole("Client").Build());//单独角色
+                options.AddPolicy("Admin", policy => policy.RequireRole("Admin").Build());
+                //options.AddPolicy("SystemOrAdmin", policy => policy.RequireRole("Admin", "System"));//或的关系
+                      
+            });
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -45,25 +55,16 @@ namespace XinYiAPI
                     // 是否验证安全密钥
                     ValidateIssuerSigningKey = true,
                     // 访问群体
-                    ValidAudience = Configuration["JwtSettings:Audience"],
+                    ValidAudience = aduient,
                     // 颁发者
-                    ValidIssuer = Configuration["JwtSettings:Issuer"],
+                    ValidIssuer = issuer,
                     // 安全密钥
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
             });
-            string secretKey = Configuration["JwtSetting:SecretKey"];
-            string issuer = Configuration["JwtSetting:Issuer"];
-            services.AddSingleton(new JwtService(secretKey, issuer));
+           
+            services.AddSingleton(new JwtService(secretKey, issuer, aduient));
             services.AddControllers();
-            //services.AddAuthentication("Bearer")
-            //   .AddJwtBearer("Bearer", options =>
-            //   {
-            //       options.Authority = "http://localhost:3000";
-            //       options.RequireHttpsMetadata = false;
-            //       options.Audience = "api1";     
-            //   });
-
             services.AddDbContext<AlanContext>(options =>
                             options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
                             options => options.EnableRetryOnFailure()));
