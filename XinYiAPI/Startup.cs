@@ -83,6 +83,7 @@ namespace XinYiAPI
             services.AddScoped<CityService>();
             services.AddScoped<DistrictService>();
             services.AddScoped<MapTemplateService>();
+            services.AddScoped<UserService>();
             services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
             services.AddSwaggerGen(options =>
             {

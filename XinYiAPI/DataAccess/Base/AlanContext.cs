@@ -12,5 +12,6 @@ namespace XinYiAPI.DataAccess.Base
         public DbSet<City> citys { get; set; }
         public DbSet<District> districts { get; set; }
         public DbSet<MapTemplate> mapTemplates { get; set; }
+        public DbSet<User> users { get; set; }
     }
 }
