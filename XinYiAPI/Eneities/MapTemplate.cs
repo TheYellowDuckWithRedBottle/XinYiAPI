@@ -22,6 +22,8 @@ namespace XinYiAPI.Eneities
         public DateTime createTime { get; set; }
         [Column("update_at")]
         public DateTime updateTime { get; set; }
+        [Column("create_user")]
+        public string createUser { get; set; }
 
     }
 }
