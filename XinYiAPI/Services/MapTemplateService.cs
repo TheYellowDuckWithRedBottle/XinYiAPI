@@ -21,10 +21,16 @@ namespace XinYiAPI.Services
             return AlanContext.SaveChanges() > 0;
         }
 
-        public bool DeleteMapTemplate(MapTemplate id)
+        public bool DeleteMapTemplate(MapTemplate mapTemplate)
         {
-            AlanContext.mapTemplates.Remove(id);
+            AlanContext.mapTemplates.Remove(mapTemplate);
             return AlanContext.SaveChanges() > 0;  
+        }
+        public bool DeleteMapTemplate(string id)
+        {
+            var mapTemplate = AlanContext.mapTemplates.Find(id);
+            AlanContext.mapTemplates.Remove(mapTemplate);
+            return AlanContext.SaveChanges() > 0;
         }
 
         public MapTemplate GetMapTemplateById(string id)
