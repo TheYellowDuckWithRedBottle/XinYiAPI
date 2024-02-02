@@ -15,9 +15,13 @@
 
   <ItemGroup>
     <Compile Remove="Base\**" />
+    <Compile Remove="新文件夹1\**" />
     <Content Remove="Base\**" />
+    <Content Remove="新文件夹1\**" />
     <EmbeddedResource Remove="Base\**" />
+    <EmbeddedResource Remove="新文件夹1\**" />
     <None Remove="Base\**" />
+    <None Remove="新文件夹1\**" />
   </ItemGroup>
 
   <ItemGroup>

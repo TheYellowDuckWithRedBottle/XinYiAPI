@@ -31,7 +31,7 @@ namespace XinYiAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [ResponseCache(Duration = 10)]
-        [Authorize(Policy ="Admin")]
+        [Authorize(Policy ="admin")]
         public IActionResult reandom()
         {
             Random random = new Random();
