@@ -33,8 +33,8 @@ namespace XinYiAPI
             var key = Encoding.UTF8.GetBytes(secretKey);
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("Client", policy => policy.RequireRole("Client").Build());//单独角色
-                options.AddPolicy("Admin", policy => policy.RequireRole("Admin").Build());
+                options.AddPolicy("client", policy => policy.RequireRole("client").Build());//单独角色
+                options.AddPolicy("admin", policy => policy.RequireRole("admin").Build());
                 //options.AddPolicy("SystemOrAdmin", policy => policy.RequireRole("Admin", "System"));//或的关系
                       
             });

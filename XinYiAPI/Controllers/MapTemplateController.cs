@@ -15,7 +15,7 @@ namespace XinYiAPI.Controllers
             this.MapTemplateService = mapTemplateService;
         }
         [HttpGet]
-        [Authorize(Policy = "admin")]
+        //[Authorize(Policy = "admin")]
         public IActionResult mapTemplates()
         {
             return Ok(MapTemplateService.GetMaptemplates());
