@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using XinYiAPI.Eneities;
 using XinYiAPI.Services;
 
@@ -14,6 +15,7 @@ namespace XinYiAPI.Controllers
             this.MapTemplateService = mapTemplateService;
         }
         [HttpGet]
+        [Authorize(Policy = "admin")]
         public IActionResult mapTemplates()
         {
             return Ok(MapTemplateService.GetMaptemplates());

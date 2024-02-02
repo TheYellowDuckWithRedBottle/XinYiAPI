@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using XinYiAPI.Common;
 using XinYiAPI.Eneities;
+using XinYiAPI.InputDto;
 using XinYiAPI.Services;
 
 namespace XinYiAPI.Controllers
@@ -9,9 +11,11 @@ namespace XinYiAPI.Controllers
     public class UserController : Controller
     {
         private UserService UserService;
-        public UserController(UserService userService)
+        private JwtService JwtService;
+        public UserController(UserService userService, JwtService jwtService)
         {
             this.UserService = userService;
+            JwtService = jwtService;
         }
         [HttpGet]
         public IActionResult users()
@@ -49,6 +53,37 @@ namespace XinYiAPI.Controllers
         public IActionResult deleteUser(string id)
         {
             return Ok(UserService.DeleteUser(id));
+        }
+        [HttpPost]
+        public IActionResult login(UserVertifyInfo user)
+        {
+            if(user == null)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                var userInfo = UserService.GetUserByName(user.username);
+                if( userInfo !=null && userInfo.password == user.password)
+                {
+                    if (!string.IsNullOrEmpty(userInfo.role)) {
+                        var jwt = JwtService.GenerateToken(userInfo.role);
+                        return Ok(jwt);
+                    } else
+                    {
+                        return Ok("当前用户没有权限");
+                    }
+                }
+                else
+                {
+                     return Ok("当前用户不存在");
+                }
+            }
+            catch
+            {
+                return Ok("当前用户不存在");
+            }   
+          
         }
     }
 }

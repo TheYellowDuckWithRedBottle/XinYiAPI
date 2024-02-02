@@ -42,5 +42,9 @@ namespace XinYiAPI.Services
             alanContext.users.Update(user);
             return alanContext.SaveChanges() > 0;
         }
+        public User GetUserByName(string username)
+        {
+           return alanContext.users.Where(item => item.username == username).FirstOrDefault();
+        }
     }
 }
