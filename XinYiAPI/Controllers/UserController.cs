@@ -3,6 +3,8 @@ using XinYiAPI.Common;
 using XinYiAPI.Eneities;
 using XinYiAPI.InputDto;
 using XinYiAPI.Services;
+using XinYiAPI.ReturnDto;
+using XinYiAPI.Resources;
 
 namespace XinYiAPI.Controllers
 {
@@ -68,20 +70,21 @@ namespace XinYiAPI.Controllers
                 {
                     if (!string.IsNullOrEmpty(userInfo.role)) {
                         var jwt = JwtService.GenerateToken(userInfo.role);
-                        return Ok(jwt);
+
+                        return Ok(new ReturnModel(){Code=200,Msg="success",Data=jwt });
                     } else
                     {
-                        return Ok("当前用户没有权限");
+                        return Ok(new ReturnModel() { Code = 200, Msg = "false", Data = "当前用户没有权限" });
                     }
                 }
                 else
                 {
-                     return Ok("当前用户不存在");
+                     return Ok(new ReturnModel() { Code = 200, Msg = "false", Data = "当前用户不存在" });
                 }
             }
             catch
             {
-                return Ok("当前用户不存在");
+                return Ok(new ReturnModel() { Code = 200, Msg = "false", Data = "当前用户不存在" });
             }   
           
         }

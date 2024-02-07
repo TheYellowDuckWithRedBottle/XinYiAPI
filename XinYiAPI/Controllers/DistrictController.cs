@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using XinYiAPI.Resources;
 using XinYiAPI.Services;
 
 namespace XinYiAPI.Controllers
@@ -22,12 +23,14 @@ namespace XinYiAPI.Controllers
         [HttpGet]
         public IActionResult districts()
         {
-            return Ok(DistrictService.GetDistricts());
+            var result = new ReturnModel() { Code = 200, Msg = "success", Data = DistrictService.GetDistricts() };
+            return Ok(result);
         }
         [HttpGet]
         public IActionResult Get()
         {
-            return new JsonResult(from c in User.Claims select new { c.Type, c.Value });
+            var result = new ReturnModel() { Code = 200, Msg = "success", Data = DistrictService.GetDistricts() };
+            return Ok(result);
         }
     }
 }
