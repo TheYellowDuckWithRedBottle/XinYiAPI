@@ -71,20 +71,20 @@ namespace XinYiAPI.Controllers
                     if (!string.IsNullOrEmpty(userInfo.role)) {
                         var jwt = JwtService.GenerateToken(userInfo.role);
 
-                        return Ok(new ReturnModel(){Code=200,Msg="success",Data=jwt });
+                        return Ok(new ReturnModel(){code=200,msg="success",data=jwt });
                     } else
                     {
-                        return Ok(new ReturnModel() { Code = 200, Msg = "false", Data = "当前用户没有权限" });
+                        return Ok(new ReturnModel() { code = 200, msg = "false", data = "当前用户没有权限" });
                     }
                 }
                 else
                 {
-                     return Ok(new ReturnModel() { Code = 200, Msg = "false", Data = "当前用户不存在" });
+                     return Ok(new ReturnModel() { code = 200, msg = "false", data = "当前用户不存在" });
                 }
             }
             catch
             {
-                return Ok(new ReturnModel() { Code = 200, Msg = "false", Data = "当前用户不存在" });
+                return Ok(new ReturnModel() { code = 200, msg = "false", data = "当前用户不存在" });
             }   
           
         }

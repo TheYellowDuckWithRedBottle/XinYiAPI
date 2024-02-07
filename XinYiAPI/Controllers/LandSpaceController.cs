@@ -221,12 +221,12 @@ namespace XinYiAPI.Controllers
         {
             if (string.IsNullOrEmpty(BSM))
             {
-                return Ok(new ReturnModel() { Code = 404, Msg = "请输入正确参数", Data = null });
+                return Ok(new ReturnModel() { code = 404, msg = "请输入正确参数", data = null });
             }
             var Shape = landSpaces.Find(item => item.BSM == BSM);
             if (Shape == null)
-                return NotFound(new ReturnModel() { Code = 404, Msg = "未查询到此条信息", Data = null });
-            return Ok(new ReturnModel() { Code = 200, Msg = "获取成功", Data = new { Shape.longitude, Shape.latitude } });
+                return NotFound(new ReturnModel() { code = 404, msg = "未查询到此条信息", data = null });
+            return Ok(new ReturnModel() { code = 200, msg = "获取成功", data = new { Shape.longitude, Shape.latitude } });
 
         }
     }

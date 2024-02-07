@@ -23,7 +23,7 @@ namespace XinYiAPI.Controllers
         [HttpGet]
         public IActionResult provinces()
         {
-            var result = new ReturnModel() { Code = 200, Msg = "success", Data = ProvinceService.GetProvinces() };
+            var result = new ReturnModel() { code = 200, msg = "success", data = ProvinceService.GetProvinces() };
             return Ok(result);
         }
         [HttpGet]
@@ -32,7 +32,7 @@ namespace XinYiAPI.Controllers
         {
             // 获取省下面的城市
             var newCityList = this.getCities(provinceName);
-            var result = new ReturnModel() { Code = 200, Msg = "success", Data = newCityList };
+            var result = new ReturnModel() { code = 200, msg = "success", data = newCityList };
             return Ok(result);
         }
         // 根据省获取城市下面的区县
@@ -41,7 +41,7 @@ namespace XinYiAPI.Controllers
         {
             // 获取省下面的区县
             var newDistrictList = GetDistricts(provinceName);
-            var result = new ReturnModel() { Code = 200, Msg = "success", Data = newDistrictList };
+            var result = new ReturnModel() { code = 200, msg = "success", data = newDistrictList };
             return Ok(result);
         }
         // 根据省获取省的tree
@@ -72,7 +72,7 @@ namespace XinYiAPI.Controllers
                 RetCity.Children = RetDistrictList;
                 RetCityList.Add(RetCity);
             }
-            var result = new ReturnModel() { Code = 200, Msg = "success", Data = RetProvince };
+            var result = new ReturnModel() { code = 200, msg = "success", data = RetProvince };
             return Ok(result);
         }
         [HttpGet]

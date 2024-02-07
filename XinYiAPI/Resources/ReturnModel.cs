@@ -7,15 +7,15 @@ namespace XinYiAPI.Resources
 {
     public class ReturnModel
     {
-        public int Code { get; set; }
+        public int code { get; set; }
         /// <summary>
         /// 消息
         /// </summary>
-        public string Msg { get; set; }
+        public string msg { get; set; }
         /// <summary>
         /// 数据
         /// </summary>
-        public object Data { get; set; }
+        public object data { get; set; }
         /// <summary>
         /// Token信息
         /// </summary>

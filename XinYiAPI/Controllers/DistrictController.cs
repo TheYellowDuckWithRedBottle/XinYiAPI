@@ -23,13 +23,13 @@ namespace XinYiAPI.Controllers
         [HttpGet]
         public IActionResult districts()
         {
-            var result = new ReturnModel() { Code = 200, Msg = "success", Data = DistrictService.GetDistricts() };
+            var result = new ReturnModel() { code = 200, msg = "success", data = DistrictService.GetDistricts() };
             return Ok(result);
         }
         [HttpGet]
         public IActionResult Get()
         {
-            var result = new ReturnModel() { Code = 200, Msg = "success", Data = DistrictService.GetDistricts() };
+            var result = new ReturnModel() { code = 200, msg = "success", data = DistrictService.GetDistricts() };
             return Ok(result);
         }
     }
