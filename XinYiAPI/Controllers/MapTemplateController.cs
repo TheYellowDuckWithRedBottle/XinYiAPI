@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using XinYiAPI.Eneities;
+using XinYiAPI.Resources;
 using XinYiAPI.Services;
 
 namespace XinYiAPI.Controllers
@@ -18,13 +19,15 @@ namespace XinYiAPI.Controllers
         [Authorize(Policy = "admin")]
         public IActionResult mapTemplates()
         {
-            return Ok(MapTemplateService.GetMaptemplates());
+            var result = new ReturnModel() { Code = 200, Msg = "success", Data = MapTemplateService.GetMaptemplates() };
+            return Ok(result);
         }
 
         [HttpPost]
         public IActionResult deleleMapTemplate(string id)
         {
-            return Ok(MapTemplateService.DeleteMapTemplate(id));
+            var result = new ReturnModel() { Code = 200, Msg = "success", Data = MapTemplateService.DeleteMapTemplate(id) };
+            return Ok(result);
         }
         [HttpPost]
         public IActionResult createMapTemplate(MapTemplate mapTemplate)
@@ -36,7 +39,8 @@ namespace XinYiAPI.Controllers
             mapTemplate.createTime = System.DateTime.Now;
             mapTemplate.updateTime = System.DateTime.Now;
             mapTemplate.id = System.Guid.NewGuid().ToString();
-            return Ok(MapTemplateService.CreateMapTemplate(mapTemplate));
+            var result = new ReturnModel() { Code = 200, Msg = "success", Data = MapTemplateService.CreateMapTemplate(mapTemplate) };
+            return Ok(result);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using XinYiAPI.Resources;
 using XinYiAPI.Services;
 
 namespace XinYiAPI.Controllers
@@ -23,7 +24,8 @@ namespace XinYiAPI.Controllers
         [HttpGet]
         public IActionResult GetCities([FromQuery] int pageIndex = 0,int pageSize=10)
         {
-            return Ok(CityService.GetCities());
+            var result = CityService.GetCities();
+            return Ok( new ReturnModel() { Code=200, Msg="success",Data=result});
         }
         /// <summary>
         /// 生成随机数

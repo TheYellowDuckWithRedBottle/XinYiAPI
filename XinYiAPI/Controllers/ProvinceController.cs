@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using XinYiAPI.Eneities;
+using XinYiAPI.Resources;
 using XinYiAPI.ReturnDto;
 using XinYiAPI.Services;
 
@@ -22,7 +23,8 @@ namespace XinYiAPI.Controllers
         [HttpGet]
         public IActionResult provinces()
         {
-            return Ok(ProvinceService.GetProvinces());
+            var result = new ReturnModel() { Code = 200, Msg = "success", Data = ProvinceService.GetProvinces() };
+            return Ok(result);
         }
         [HttpGet]
         // 根据省获取省下面的城市
@@ -30,7 +32,8 @@ namespace XinYiAPI.Controllers
         {
             // 获取省下面的城市
             var newCityList = this.getCities(provinceName);
-            return Ok(newCityList);
+            var result = new ReturnModel() { Code = 200, Msg = "success", Data = newCityList };
+            return Ok(result);
         }
         // 根据省获取城市下面的区县
         [HttpGet]
@@ -38,7 +41,8 @@ namespace XinYiAPI.Controllers
         {
             // 获取省下面的区县
             var newDistrictList = GetDistricts(provinceName);
-            return Ok(newDistrictList);
+            var result = new ReturnModel() { Code = 200, Msg = "success", Data = newDistrictList };
+            return Ok(result);
         }
         // 根据省获取省的tree
         [HttpGet]
@@ -68,16 +72,13 @@ namespace XinYiAPI.Controllers
                 RetCity.Children = RetDistrictList;
                 RetCityList.Add(RetCity);
             }
-
-            return Ok(RetProvince);
+            var result = new ReturnModel() { Code = 200, Msg = "success", Data = RetProvince };
+            return Ok(result);
         }
         [HttpGet]
         public IActionResult testAuto() {
             return Ok("测试成功");
         }
-
-
-
 
 
         // 根据省获取省的城市
