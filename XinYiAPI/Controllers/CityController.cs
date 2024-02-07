@@ -25,7 +25,7 @@ namespace XinYiAPI.Controllers
         public IActionResult GetCities([FromQuery] int pageIndex = 0,int pageSize=10)
         {
             var result = CityService.GetCities();
-            return Ok( new ReturnModel() { Code=200, Msg="success",Data=result});
+            return Ok( new ReturnModel() { code=200, msg="success",data=result});
         }
         /// <summary>
         /// 生成随机数

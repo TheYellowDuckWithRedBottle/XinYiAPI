@@ -19,14 +19,14 @@ namespace XinYiAPI.Controllers
         [Authorize(Policy = "admin")]
         public IActionResult mapTemplates()
         {
-            var result = new ReturnModel() { Code = 200, Msg = "success", Data = MapTemplateService.GetMaptemplates() };
+            var result = new ReturnModel() { code = 200, msg = "success", data = MapTemplateService.GetMaptemplates() };
             return Ok(result);
         }
 
         [HttpPost]
         public IActionResult deleleMapTemplate(string id)
         {
-            var result = new ReturnModel() { Code = 200, Msg = "success", Data = MapTemplateService.DeleteMapTemplate(id) };
+            var result = new ReturnModel() { code = 200, msg = "success", data = MapTemplateService.DeleteMapTemplate(id) };
             return Ok(result);
         }
         [HttpPost]
@@ -39,7 +39,7 @@ namespace XinYiAPI.Controllers
             mapTemplate.createTime = System.DateTime.Now;
             mapTemplate.updateTime = System.DateTime.Now;
             mapTemplate.id = System.Guid.NewGuid().ToString();
-            var result = new ReturnModel() { Code = 200, Msg = "success", Data = MapTemplateService.CreateMapTemplate(mapTemplate) };
+            var result = new ReturnModel() { code = 200, msg = "success", data = MapTemplateService.CreateMapTemplate(mapTemplate) };
             return Ok(result);
         }
     }
