@@ -22,12 +22,14 @@ namespace XinYiAPI.Controllers
         [HttpGet]
         public IActionResult users()
         {
-            return Ok(UserService.GetUsers());
+            var result = new ReturnModel() { code = 200,msg="success",data=UserService.GetUsers() };
+            return Ok(result);
         }
         [HttpGet]
         public IActionResult user(string id)
         {
-            return Ok(UserService.GetUserById(id));
+            var result = new ReturnModel() { code = 200, msg="success",data= UserService.GetUserById(id) };
+            return Ok(result);
         }
         [HttpPost]
         public IActionResult createUser(User user)
@@ -39,7 +41,8 @@ namespace XinYiAPI.Controllers
             user.createTime = System.DateTime.Now;
             user.updateTime = System.DateTime.Now;
             user.id = System.Guid.NewGuid().ToString();
-            return Ok(UserService.CreateUser(user));
+            var result = new ReturnModel() {code = 200,msg="success",data = UserService.CreateUser(user) };
+            return Ok(result);
         }
         [HttpPost]
         public IActionResult updateUser(User user)
@@ -49,12 +52,14 @@ namespace XinYiAPI.Controllers
                 return BadRequest();
             }
             user.updateTime = System.DateTime.Now;
-            return Ok(UserService.UpdateUser(user));
+            var result = new ReturnModel() { code =200,msg="success",data = UserService.UpdateUser(user) };
+            return Ok(result);
         }
         [HttpPost]
         public IActionResult deleteUser(string id)
         {
-            return Ok(UserService.DeleteUser(id));
+            var result = new ReturnModel() { code = 200, msg = "success", data = UserService.DeleteUser(id) };
+            return Ok(result);
         }
         [HttpPost]
         public IActionResult login(UserVertifyInfo user)
@@ -70,7 +75,6 @@ namespace XinYiAPI.Controllers
                 {
                     if (!string.IsNullOrEmpty(userInfo.role)) {
                         var jwt = JwtService.GenerateToken(userInfo.role);
-
                         return Ok(new ReturnModel(){code=200,msg="success",data=jwt });
                     } else
                     {
