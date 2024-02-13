@@ -50,7 +50,7 @@ namespace XinYiAPI.Controllers
             // 更新用户的头像信息
             if (user == null)
             { return BadRequest(); }
-            if(!string.IsNullOrEmpty(user.id))
+            if(!string.IsNullOrEmpty(user.id)) // 用户名不为空
             {
                 var findedUser = UserService.GetUserById(user.id);
                 if (findedUser == null)
@@ -61,20 +61,27 @@ namespace XinYiAPI.Controllers
                         if (findedUser == null)
                         {
                             return Ok(new ReturnModel() { code = 200, msg = "false", data = "未获取到用户信息" });
+                        } else
+                        {
+                            findedUser.avatar = user.avatar;
+                            UserService.UpdateUser(findedUser);
+                            return Ok(new ReturnModel() { code = 200, msg = "true", data = findedUser });
                         }
                     }
                 }
-                if (user.avatar != null)
+            } else{
+                if (!string.IsNullOrEmpty(user.username))
                 {
-                    findedUser.avatar = user.avatar;
+                    var findedUser = UserService.GetUserByName(user.username);
+                    if (findedUser == null)
+                    {
+                        return Ok(new ReturnModel() { code = 200, msg = "false", data = "未获取到用户信息" });
+                    } else {
+                        findedUser.avatar = user.avatar;
+                        UserService.UpdateUser(findedUser);
+                        return Ok(new ReturnModel() { code = 200, msg = "true", data = findedUser });
+                    }
                 }
-                else
-                {
-                    return Ok(new ReturnModel() { code = 200, msg = "false", data = "未获取到上传的头像" });
-                }
-                UserService.UpdateUser(findedUser);
-                var result = new ReturnModel() { code = 200, msg = "true", data = findedUser };
-                return Ok(result);
             }
             return Ok(new ReturnModel() { code = 200, msg = "false", data = "未获取到用户信息" });
 
