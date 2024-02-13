@@ -45,7 +45,7 @@ namespace XinYiAPI.Controllers
             return Ok(result);
         }
         [HttpPost]
-        public IActionResult updateUserAvatar(User user)
+        public IActionResult updateUserAvatar(UserBasicInfo user)
         {
             // 更新用户的头像信息
             if (user == null)
