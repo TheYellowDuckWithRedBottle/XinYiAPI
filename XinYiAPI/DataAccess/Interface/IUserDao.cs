@@ -10,6 +10,7 @@ namespace XinYiAPI.DataAccess.Interface
         bool CreateUser(User user);
         bool UpdateUser(User user);
         bool DeleteUser(string id);
+  
 
     }
 }
