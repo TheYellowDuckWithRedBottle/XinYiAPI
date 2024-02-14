@@ -22,13 +22,20 @@ namespace XinYiAPI.Controllers
         [HttpGet]
         public IActionResult users()
         {
-            var result = new ReturnModel() { code = 200,msg="success",data=UserService.GetUsers() };
+            var result = new ReturnModel() { code = 200,data=UserService.GetUsers() };
             return Ok(result);
         }
+        // 根据用户id获取用户信息
         [HttpGet]
         public IActionResult user(string id)
         {
-            var result = new ReturnModel() { code = 200, msg="success",data= UserService.GetUserById(id) };
+            var result = new ReturnModel() { code = 200,data= UserService.GetUserById(id) };
+            return Ok(result);
+        }
+        [HttpGet]
+        public IActionResult getUserByName(string username)
+        {
+            var result = new ReturnModel() { code = 200, data = UserService.GetUserByName(username) };
             return Ok(result);
         }
         [HttpPost]
@@ -41,7 +48,7 @@ namespace XinYiAPI.Controllers
             user.createTime = System.DateTime.Now;
             user.updateTime = System.DateTime.Now;
             user.id = System.Guid.NewGuid().ToString();
-            var result = new ReturnModel() {code = 200,msg="success",data = UserService.CreateUser(user) };
+            var result = new ReturnModel() {code = 200,data = UserService.CreateUser(user) };
             return Ok(result);
         }
         [HttpPost]
@@ -60,12 +67,12 @@ namespace XinYiAPI.Controllers
                         findedUser = UserService.GetUserByName(user.username);
                         if (findedUser == null)
                         {
-                            return Ok(new ReturnModel() { code = 200, msg = "false", data = "未获取到用户信息" });
+                            return Ok(new ReturnModel() { code = 200, msg=MessageInfo.failed, data = "未获取到用户信息" });
                         } else
                         {
                             findedUser.avatar = user.avatar;
                             UserService.UpdateUser(findedUser);
-                            return Ok(new ReturnModel() { code = 200, msg = "true", data = findedUser });
+                            return Ok(new ReturnModel() { code = 200,  data = findedUser });
                         }
                     }
                 }
@@ -75,15 +82,15 @@ namespace XinYiAPI.Controllers
                     var findedUser = UserService.GetUserByName(user.username);
                     if (findedUser == null)
                     {
-                        return Ok(new ReturnModel() { code = 200, msg = "false", data = "未获取到用户信息" });
+                        return Ok(new ReturnModel() { code = 200, msg = MessageInfo.failed, data = "未获取到用户信息" });
                     } else {
                         findedUser.avatar = user.avatar;
                         UserService.UpdateUser(findedUser);
-                        return Ok(new ReturnModel() { code = 200, msg = "true", data = findedUser });
+                        return Ok(new ReturnModel() { code = 200,  data = findedUser });
                     }
                 }
             }
-            return Ok(new ReturnModel() { code = 200, msg = "false", data = "未获取到用户信息" });
+            return Ok(new ReturnModel() { code = 200, msg=MessageInfo.failed, data = "未获取到用户信息" });
 
         }
 
@@ -95,13 +102,13 @@ namespace XinYiAPI.Controllers
                 return BadRequest();
             }
             user.updateTime = System.DateTime.Now;
-            var result = new ReturnModel() { code =200,msg="success",data = UserService.UpdateUser(user) };
+            var result = new ReturnModel() { code =200,data = UserService.UpdateUser(user) };
             return Ok(result);
         }
         [HttpPost]
         public IActionResult deleteUser(string id)
         {
-            var result = new ReturnModel() { code = 200, msg = "success", data = UserService.DeleteUser(id) };
+            var result = new ReturnModel() { code = 200, data = UserService.DeleteUser(id) };
             return Ok(result);
         }
         [HttpPost]
@@ -118,20 +125,20 @@ namespace XinYiAPI.Controllers
                 {
                     if (!string.IsNullOrEmpty(userInfo.role)) {
                         var jwt = JwtService.GenerateToken(userInfo.role);
-                        return Ok(new ReturnModel(){code=200,msg="success",data=jwt });
+                        return Ok(new ReturnModel(){code=200,data=jwt });
                     } else
                     {
-                        return Ok(new ReturnModel() { code = 200, msg = "false", data = "当前用户没有权限" });
+                        return Ok(new ReturnModel() { code = 200, msg=MessageInfo.failed, data = "当前用户没有权限" });
                     }
                 }
                 else
                 {
-                     return Ok(new ReturnModel() { code = 200, msg = "false", data = "当前用户不存在" });
+                     return Ok(new ReturnModel() { code = 200, msg=MessageInfo.failed, data = "当前用户不存在" });
                 }
             }
             catch
             {
-                return Ok(new ReturnModel() { code = 200, msg = "false", data = "当前用户不存在" });
+                return Ok(new ReturnModel() { code = 200, msg=MessageInfo.failed, data = "当前用户不存在" });
             }   
           
         }

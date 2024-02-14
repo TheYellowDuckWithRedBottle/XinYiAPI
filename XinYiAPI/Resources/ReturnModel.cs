@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using XinYiAPI.ReturnDto;
 
 namespace XinYiAPI.Resources
 {
@@ -11,7 +12,7 @@ namespace XinYiAPI.Resources
         /// <summary>
         /// 消息
         /// </summary>
-        public string msg { get; set; }
+        public string msg { get; set; } = MessageInfo.succeed;
         /// <summary>
         /// 数据
         /// </summary>
